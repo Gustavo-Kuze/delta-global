@@ -58,4 +58,22 @@ const updateStudent = (id, user) => {
   });
 };
 
-export { getStudents, getStudentById, createStudent, updateStudent };
+const deleteStudent = (id, callback) => {
+  return new Promise(resolve => {
+    database()
+      .ref(`/users/${id}`)
+      .remove()
+      .then(() => {
+        callback();
+        resolve({});
+      });
+  });
+};
+
+export {
+  getStudents,
+  getStudentById,
+  createStudent,
+  updateStudent,
+  deleteStudent,
+};

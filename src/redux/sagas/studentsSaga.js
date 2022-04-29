@@ -4,6 +4,7 @@ import {
   createStudent,
   getStudents,
   updateStudent,
+  deleteStudent,
 } from '../../services/studentsService';
 import { types as studentsTypes } from '../ducks/students';
 
@@ -53,4 +54,19 @@ function* createStudentEffect(action) {
   }
 }
 
-export { fetchStudentsEffect, updateStudentEffect, createStudentEffect };
+function* deleteStudentEffect(action) {
+  const result = yield call(() =>
+    deleteStudent(action.payload.id, action.payload.callback),
+  );
+
+  if (!result.error) {
+    action.payload.callback();
+  }
+}
+
+export {
+  fetchStudentsEffect,
+  updateStudentEffect,
+  createStudentEffect,
+  deleteStudentEffect,
+};

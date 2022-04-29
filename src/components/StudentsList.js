@@ -15,6 +15,8 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { deleteStudentAsync } from '../redux/ducks/students';
 
 /*
 Este componente exibe uma lista com itens deslizáveis (react-native-swipe-list-view)
@@ -24,6 +26,7 @@ que renderiza os usuários cadastrados no Firebase.
 function StudentsList({ students, isLoading }) {
   const [listData, setListData] = useState(students);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setListData(students);
@@ -41,6 +44,14 @@ function StudentsList({ students, isLoading }) {
     const prevIndex = listData.findIndex(item => item.id === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
+  };
+
+  const deleteStudent = (rowMap, id) => {
+    dispatch(
+      deleteStudentAsync(id, () => {
+        deleteRow(rowMap, id);
+      }),
+    );
   };
 
   const renderItem = ({ item, index }) =>
@@ -170,7 +181,7 @@ function StudentsList({ students, isLoading }) {
         w="70"
         bg="red.500"
         justifyContent="center"
-        onPress={() => deleteRow(rowMap, data.item.id)}
+        onPress={() => deleteStudent(rowMap, data.item.id)}
         _pressed={{
           opacity: 0.5,
         }}>

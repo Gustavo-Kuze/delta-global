@@ -4,6 +4,7 @@ import {
   createStudentEffect,
   fetchStudentsEffect,
   updateStudentEffect,
+  deleteStudentEffect,
 } from './studentsSaga';
 
 export default function* root() {
@@ -11,5 +12,6 @@ export default function* root() {
     yield takeLatest(studentsTypes.GET_STUDENTS_ASYNC, fetchStudentsEffect),
     yield takeLatest(studentsTypes.UPDATE_STUDENT_ASYNC, updateStudentEffect),
     yield takeLatest(studentsTypes.CREATE_STUDENT_ASYNC, createStudentEffect),
+    yield takeLatest(studentsTypes.DELETE_STUDENT_ASYNC, deleteStudentEffect),
   ]);
 }

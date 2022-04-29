@@ -11,8 +11,8 @@ function MainNavigator() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Students" component={Students} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Students" component={Students} />
     </Stack.Navigator>
   );
 }

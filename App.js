@@ -6,27 +6,23 @@
  * @flow strict-local
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NativeBaseProvider } from 'native-base';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from './src/screens';
 import configureStore from './src/redux/store';
-// import database from '@react-native-firebase/database';
 
 const App = () => {
+  // script para criar os usuários no firebase baseados no mock
   // useEffect(() => {
-  //   const reference = database().ref('/users');
-  //   /*
-  //     reference.set({
-  //       name: 'John Doe',
-  //       age: 30,
-  //       isDeveloper: true,
-  //     });
-  //   */
-  //   reference.on('value', snapshot => {
-  //     console.log(snapshot.val());
-  //   });
+  // (async () => {
+  //   await Promise.all(
+  //     studentsMock.map(async user => {
+  //       return createStudent(user);
+  //     }),
+  //   );
+  // })();
   // }, []);
 
   return (

@@ -1,6 +1,8 @@
 import React from 'react';
 import { HStack, Switch, Text, useColorMode } from 'native-base';
 
+// Este componente é usado para alternar entre os temas do app
+// A tematização é controlada pela bibliteca NativeBase
 const ThemeToggler = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (

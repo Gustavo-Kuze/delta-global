@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Center, Heading, VStack } from 'native-base';
 import ThemeToggler from '../components/ThemeToggler';
 
+// Tela inicial da aplicação que exibe o toggler para alterar entre o tema light e dark (ThemeToggler)
 function Home({ navigation }) {
   return (
     <Center

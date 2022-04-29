@@ -6,33 +6,34 @@
  * @flow strict-local
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NativeBaseProvider } from 'native-base';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from './src/screens';
 import configureStore from './src/redux/store';
-import database from '@react-native-firebase/database';
 
+// Ponto de entrada da aplicação
 const App = () => {
-  useEffect(() => {
-    const reference = database().ref('/users');
-    /*
-      reference.set({
-        name: 'John Doe',
-        age: 30,
-        isDeveloper: true,
-      });
-    */
-    reference.on('value', snapshot => {
-      console.log(snapshot.val());
-    });
-  }, []);
+  // script que foi usado para criar os usuários no firebase baseados no arquivo mock.js
+  // useEffect(() => {
+  // (async () => {
+  //   await Promise.all(
+  //     studentsMock.map(async user => {
+  //       return createStudent(user);
+  //     }),
+  //   );
+  // })();
+  // }, []);
 
   return (
+    // Provider é um componente que permite acessar o store do redux
     <Provider store={configureStore}>
+      {/* Container de navegação que controla as telas do app */}
       <NavigationContainer>
+        {/* Instancia do Context API da lib NativeBase para controle de tema*/}
         <NativeBaseProvider>
+          {/* Navegador Stack principal do app com as definições das telas*/}
           <MainNavigator />
         </NativeBaseProvider>
       </NavigationContainer>

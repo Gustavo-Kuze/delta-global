@@ -1,20 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { Box, Center, Heading, Text } from 'native-base';
 
 import StudentsList from '../components/StudentsList';
-import { getStudents } from '../services/studentsService';
+import { useDispatch, useSelector } from 'react-redux';
+import { types as studentsTypes } from '../redux/ducks/students';
 
 function Students() {
-  const [data, setData] = useState([]);
-  const [isLoadingStudents, setIsLoadingStudents] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, students } = useSelector(state => state.students);
 
   useEffect(() => {
-    (async () => {
-      setIsLoadingStudents(true);
-      const response = await getStudents();
-      setData(response);
-      setIsLoadingStudents(false);
-    })();
+    dispatch({
+      type: studentsTypes.GET_STUDENTS_ASYNC,
+    });
   }, []);
 
   return (
@@ -36,7 +35,7 @@ function Students() {
         <Text ml="5" mb="8">
           Deslize o item para ver as opções
         </Text>
-        <StudentsList students={data} isLoading={isLoadingStudents} />
+        <StudentsList students={students} isLoading={isLoading} />
       </Box>
     </Center>
   );

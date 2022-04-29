@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import appSettings from './appSettings';
+import students from './students';
 
 export default combineReducers({
-  appSettings,
+  students,
 });

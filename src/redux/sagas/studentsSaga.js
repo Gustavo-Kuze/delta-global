@@ -1,5 +1,10 @@
 import { put, call } from 'redux-saga/effects';
-import { getStudents, updateStudent } from '../../services/studentsService';
+import { orderBy } from '../../helpers/orderBy';
+import {
+  createStudent,
+  getStudents,
+  updateStudent,
+} from '../../services/studentsService';
 import { types as studentsTypes } from '../ducks/students';
 
 function* fetchStudentsEffect() {
@@ -13,7 +18,8 @@ function* fetchStudentsEffect() {
   if (!result.error) {
     yield put({
       type: studentsTypes.SET_STUDENTS,
-      payload: result,
+      // ordena os estudantes em ordem alfabética
+      payload: result.sort(orderBy(['fullName'], ['asc'])),
     });
   }
 
@@ -36,4 +42,15 @@ function* updateStudentEffect(action) {
   }
 }
 
-export { fetchStudentsEffect, updateStudentEffect };
+function* createStudentEffect(action) {
+  const result = yield call(() => createStudent(action.payload.student));
+
+  if (!result.error) {
+    yield put({
+      type: studentsTypes.GET_STUDENTS_ASYNC,
+    });
+    action.payload.callback();
+  }
+}
+
+export { fetchStudentsEffect, updateStudentEffect, createStudentEffect };

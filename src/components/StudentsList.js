@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Center,
+  Fab,
   HStack,
   Icon,
   Pressable,
@@ -211,6 +212,16 @@ function StudentsList({ students, isLoading }) {
         previewOpenValue={-40}
         previewOpenDelay={3000}
         onRowDidOpen={() => {}}
+      />
+
+      <Fab
+        renderInPortal={false}
+        shadow={2}
+        size="sm"
+        onPress={() => navigation.navigate('EditStudent', { student: null })}
+        icon={
+          <Icon color="white" as={<MaterialIcons name="add" />} size="xl" />
+        }
       />
     </Box>
   );

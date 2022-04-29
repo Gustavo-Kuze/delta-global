@@ -11,10 +11,11 @@ function Home({ navigation }) {
       px={4}
       flex={1}>
       <VStack space={5} alignItems="center">
-        <Heading size="lg">Escola Delta</Heading>
-        <Heading size="sm">Bem-vindo (a)</Heading>
+        <Heading size="xl">Escola Delta</Heading>
+        <Heading size="md">Bem-vindo (a)</Heading>
         <ThemeToggler />
         <Button
+          size="lg"
           onPress={() => {
             navigation.navigate('Students');
           }}>

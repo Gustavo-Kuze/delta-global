@@ -6,7 +6,7 @@ import { HStack, Switch, Text, useColorMode } from 'native-base';
 const ThemeToggler = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <HStack space={2} alignItems="center">
+    <HStack space={2} alignItems="center" mt="6" mb="6">
       <Text>Usar tema dark</Text>
       <Switch
         isChecked={colorMode === 'dark'}

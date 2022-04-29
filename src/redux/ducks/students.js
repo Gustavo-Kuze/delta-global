@@ -11,6 +11,7 @@ export const types = {
   SET_LOADING: `${typesPrefix}/SET_LOADING`,
   GET_STUDENTS_ASYNC: `${typesPrefix}/GET_STUDENTS_ASYNC`,
   UPDATE_STUDENT_ASYNC: `${typesPrefix}/UPDATE_STUDENT_ASYNC`,
+  CREATE_STUDENT_ASYNC: `${typesPrefix}/CREATE_STUDENT_ASYNC`,
 };
 
 const INITIAL_STATE = {
@@ -48,9 +49,15 @@ export const updateStudentAsync = (student, callback) => ({
   payload: { student, callback },
 });
 
+export const createStudentAsync = (student, callback) => ({
+  type: types.CREATE_STUDENT_ASYNC,
+  payload: { student, callback },
+});
+
 export const allActions = {
   setStudents,
   setIsLoading,
   getStudentsAsync,
   updateStudentAsync,
+  createStudentAsync,
 };

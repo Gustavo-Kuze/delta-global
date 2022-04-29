@@ -12,7 +12,10 @@ import {
 } from 'native-base';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateStudentAsync } from '../redux/ducks/students';
+import {
+  createStudentAsync,
+  updateStudentAsync,
+} from '../redux/ducks/students';
 
 function EditStudent(props) {
   const dispatch = useDispatch();
@@ -25,20 +28,36 @@ function EditStudent(props) {
   const [avatarUrl, setAvatarUrl] = useState(student.avatarUrl || '');
 
   const saveStudent = async () => {
-    dispatch(
-      updateStudentAsync(
-        {
-          id: student.id,
-          address,
-          address2,
-          fullName,
-          avatarUrl,
-        },
-        () => {
-          props.navigation.goBack();
-        },
-      ),
-    );
+    if (student.id) {
+      dispatch(
+        updateStudentAsync(
+          {
+            id: student.id,
+            address,
+            address2,
+            fullName,
+            avatarUrl,
+          },
+          () => {
+            props.navigation.goBack();
+          },
+        ),
+      );
+    } else {
+      dispatch(
+        createStudentAsync(
+          {
+            address,
+            address2,
+            fullName,
+            avatarUrl,
+          },
+          () => {
+            props.navigation.goBack();
+          },
+        ),
+      );
+    }
   };
 
   return (
@@ -55,7 +74,7 @@ function EditStudent(props) {
         w="100%"
         h="full">
         <Heading p="4" pb="3" size="lg">
-          Editar Dados do Estudante
+          Formulário do Estudante
         </Heading>
         <Text ml="5" mb="10">
           Preencha todos os dados do formulário

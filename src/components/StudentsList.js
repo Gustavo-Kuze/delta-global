@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { useNavigation } from '@react-navigation/native';
 
 /*
 Este componente exibe uma lista com itens deslizáveis (react-native-swipe-list-view)
@@ -21,6 +22,7 @@ que renderiza os usuários cadastrados no Firebase.
 
 function StudentsList({ students, isLoading }) {
   const [listData, setListData] = useState(students);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setListData(students);
@@ -35,7 +37,7 @@ function StudentsList({ students, isLoading }) {
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
     const newData = [...listData];
-    const prevIndex = listData.findIndex(item => item.key === rowKey);
+    const prevIndex = listData.findIndex(item => item.id === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
   };
@@ -145,7 +147,10 @@ function StudentsList({ students, isLoading }) {
         ml="auto"
         bg="coolGray.200"
         justifyContent="center"
-        onPress={() => closeRow(rowMap, data.item.key)}
+        onPress={() => {
+          closeRow(rowMap, data.item.id);
+          navigation.navigate('EditStudent', { student: data.item });
+        }}
         _pressed={{
           opacity: 0.5,
         }}>
@@ -164,7 +169,7 @@ function StudentsList({ students, isLoading }) {
         w="70"
         bg="red.500"
         justifyContent="center"
-        onPress={() => deleteRow(rowMap, data.item.key)}
+        onPress={() => deleteRow(rowMap, data.item.id)}
         _pressed={{
           opacity: 0.5,
         }}>
@@ -200,6 +205,7 @@ function StudentsList({ students, isLoading }) {
         }
         renderItem={renderItem}
         renderHiddenItem={isLoading ? () => <></> : renderHiddenItem}
+        keyExtractor={item => item.id}
         rightOpenValue={-130}
         previewRowKey={'0'}
         previewOpenValue={-40}

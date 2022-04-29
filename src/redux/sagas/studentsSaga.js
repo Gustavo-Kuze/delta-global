@@ -31,6 +31,11 @@ function* fetchStudentsEffect() {
 }
 
 function* updateStudentEffect(action) {
+  yield put({
+    type: studentsTypes.SET_LOADING,
+    payload: true,
+  });
+
   const result = yield call(() =>
     updateStudent(action.payload.student.id, action.payload.student),
   );
@@ -41,9 +46,19 @@ function* updateStudentEffect(action) {
     });
     action.payload.callback();
   }
+
+  yield put({
+    type: studentsTypes.SET_LOADING,
+    payload: false,
+  });
 }
 
 function* createStudentEffect(action) {
+  yield put({
+    type: studentsTypes.SET_LOADING,
+    payload: true,
+  });
+
   const result = yield call(() => createStudent(action.payload.student));
 
   if (!result.error) {
@@ -52,6 +67,11 @@ function* createStudentEffect(action) {
     });
     action.payload.callback();
   }
+
+  yield put({
+    type: studentsTypes.SET_LOADING,
+    payload: true,
+  });
 }
 
 function* deleteStudentEffect(action) {

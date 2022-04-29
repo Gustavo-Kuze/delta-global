@@ -106,6 +106,11 @@ function EditStudent(props) {
       mediaType: 'photo',
     });
 
+    if (result.didCancel) {
+      setIsLoadingImagUpload(false);
+      return;
+    }
+
     const pathToFile = result.assets[0].uri;
 
     await reference.putFile(pathToFile);

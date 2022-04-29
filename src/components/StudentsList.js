@@ -14,6 +14,11 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
+/*
+Este componente exibe uma lista com itens deslizáveis (react-native-swipe-list-view)
+que renderiza os usuários cadastrados no Firebase.
+*/
+
 function StudentsList({ students, isLoading }) {
   const [listData, setListData] = useState(students);
 
@@ -176,6 +181,7 @@ function StudentsList({ students, isLoading }) {
   return (
     <Box safeArea flex="1" h="full">
       <SwipeListView
+        // caso os dados entejam sendo carregados, mostra uma lista de 10 skeletons
         data={
           isLoading
             ? [

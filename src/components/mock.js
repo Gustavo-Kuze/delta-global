@@ -1,3 +1,5 @@
+// Este é o arquivo de mock de usuários que foi usado antes de o Firebase ser implementado
+
 const studentsMock = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',

@@ -5,6 +5,7 @@ import Students from './Students';
 
 const Stack = createNativeStackNavigator();
 
+// Neste arquivo são definidas todas as telas do app
 function MainNavigator() {
   return (
     <Stack.Navigator

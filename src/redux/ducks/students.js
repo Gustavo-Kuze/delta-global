@@ -1,3 +1,9 @@
+/*
+Optei por utilizar o duck pattern para criar os reducers e actions.
+Com isso, tanto os tipos das actions e os action creators quanto os reducers são criados
+em um arquivo único, facilitando a leitura e manutenção do código.
+*/
+
 const typesPrefix = '@students';
 
 export const types = {

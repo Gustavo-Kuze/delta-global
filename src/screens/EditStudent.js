@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -12,6 +12,7 @@ import {
 } from 'native-base';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { updateStudentAsync } from '../redux/ducks/students';
 
 function EditStudent(props) {
   const dispatch = useDispatch();
@@ -23,7 +24,22 @@ function EditStudent(props) {
   const [fullName, setFullname] = useState(student.fullName || '');
   const [avatarUrl, setAvatarUrl] = useState(student.avatarUrl || '');
 
-  const saveStudent = async () => {};
+  const saveStudent = async () => {
+    dispatch(
+      updateStudentAsync(
+        {
+          id: student.id,
+          address,
+          address2,
+          fullName,
+          avatarUrl,
+        },
+        () => {
+          props.navigation.goBack();
+        },
+      ),
+    );
+  };
 
   return (
     <Center h="full">
@@ -63,7 +79,8 @@ function EditStudent(props) {
                 mt="6"
                 colorScheme="green"
                 size={'lg'}
-                onPress={saveStudent}>
+                onPress={saveStudent}
+                isLoading={isLoading}>
                 Salvar
               </Button>
             </VStack>

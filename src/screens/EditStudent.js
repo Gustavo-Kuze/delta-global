@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import {
+  Avatar,
   Box,
   Button,
   Center,
   FormControl,
   Heading,
   Input,
+  Pressable,
   Text,
   VStack,
 } from 'native-base';
-
+import { launchImageLibrary } from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   createStudentAsync,
@@ -60,6 +63,21 @@ function EditStudent(props) {
     }
   };
 
+  const selectImage = async () => {
+    const reference = storage().ref(new Date().valueOf().toString());
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+    });
+
+    const pathToFile = result.assets[0].uri;
+
+    await reference.putFile(pathToFile);
+
+    const url = await reference.getDownloadURL();
+
+    setAvatarUrl(url);
+  };
+
   return (
     <Center h="full">
       <Box
@@ -82,6 +100,22 @@ function EditStudent(props) {
         <Center w="100%">
           <Box safeArea p="2" w="90%" pb="8">
             <VStack space={3} mt="5">
+              <Pressable
+                onPress={() => selectImage()}
+                _dark={{
+                  bg: 'coolGray.800',
+                }}
+                _light={{
+                  bg: 'white',
+                }}>
+                <Avatar
+                  alignSelf="center"
+                  size="2xl"
+                  source={{
+                    uri: avatarUrl,
+                  }}
+                />
+              </Pressable>
               <FormControl>
                 <FormControl.Label>Nome completo</FormControl.Label>
                 <Input value={fullName} onChangeText={setFullname} />

@@ -6,19 +6,37 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NativeBaseProvider } from 'native-base';
-
+import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from './src/screens';
+import configureStore from './src/redux/store';
+import database from '@react-native-firebase/database';
 
 const App = () => {
+  useEffect(() => {
+    const reference = database().ref('/users');
+    /*
+      reference.set({
+        name: 'John Doe',
+        age: 30,
+        isDeveloper: true,
+      });
+    */
+    reference.on('value', snapshot => {
+      console.log(snapshot.val());
+    });
+  }, []);
+
   return (
-    <NavigationContainer>
-      <NativeBaseProvider>
-        <MainNavigator />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    <Provider store={configureStore}>
+      <NavigationContainer>
+        <NativeBaseProvider>
+          <MainNavigator />
+        </NativeBaseProvider>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

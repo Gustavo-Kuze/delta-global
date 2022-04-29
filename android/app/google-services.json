@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1098973607545",
+    "project_id": "jobs-42936",
+    "storage_bucket": "jobs-42936.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098973607545:android:1f875eb2a8086cb90ec6a8",
+        "android_client_info": {
+          "package_name": "com.delta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098973607545-843vpkuo3dra2h8jmki3is7vncichvlk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.delta",
+            "certificate_hash": "de2606b3e425074330f2f8599661dcc296bec303"
+          }
+        },
+        {
+          "client_id": "1098973607545-0g0gf7g0q14rkk97t234ki7gs0q1v9er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmmu5yW2QRFvRE33ZXMQq8shwJD4_urv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098973607545-0g0gf7g0q14rkk97t234ki7gs0q1v9er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

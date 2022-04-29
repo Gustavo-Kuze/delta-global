@@ -23,6 +23,7 @@ import {
 function EditStudent(props) {
   const dispatch = useDispatch();
   const { isLoading } = useSelector(state => state.students);
+  const [isLoadingImagUpload, setIsLoadingImagUpload] = useState(false);
   const student = (props.route.params || {}).student || {};
 
   const [address, setAddress] = useState(student.address || '');
@@ -30,7 +31,42 @@ function EditStudent(props) {
   const [fullName, setFullname] = useState(student.fullName || '');
   const [avatarUrl, setAvatarUrl] = useState(student.avatarUrl || '');
 
+  const [isFullNameInvalid, setIsFullNameInvalid] = useState(false);
+  const [isAddressInvalid, setIsAddressInvalid] = useState(false);
+  const [isAddress2Invalid, setIsAddress2Invalid] = useState(false);
+
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!fullName) {
+      setIsFullNameInvalid(true);
+      isValid = false;
+    } else {
+      setIsFullNameInvalid(false);
+    }
+
+    if (!address) {
+      setIsAddressInvalid(true);
+      isValid = false;
+    } else {
+      setIsAddressInvalid(false);
+    }
+
+    if (!address2) {
+      setIsAddress2Invalid(true);
+      isValid = false;
+    } else {
+      setIsAddress2Invalid(false);
+    }
+
+    return isValid;
+  };
+
   const saveStudent = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
     if (student.id) {
       dispatch(
         updateStudentAsync(
@@ -64,6 +100,7 @@ function EditStudent(props) {
   };
 
   const selectImage = async () => {
+    setIsLoadingImagUpload(true);
     const reference = storage().ref(new Date().valueOf().toString());
     const result = await launchImageLibrary({
       mediaType: 'photo',
@@ -76,6 +113,7 @@ function EditStudent(props) {
     const url = await reference.getDownloadURL();
 
     setAvatarUrl(url);
+    setIsLoadingImagUpload(false);
   };
 
   return (
@@ -116,24 +154,34 @@ function EditStudent(props) {
                   }}
                 />
               </Pressable>
-              <FormControl>
+              <FormControl isRequired isInvalid={isFullNameInvalid}>
                 <FormControl.Label>Nome completo</FormControl.Label>
                 <Input value={fullName} onChangeText={setFullname} />
+                <FormControl.ErrorMessage>
+                  Por favor, preencha o nome completo
+                </FormControl.ErrorMessage>
               </FormControl>
-              <FormControl>
+
+              <FormControl isRequired isInvalid={isAddressInvalid}>
                 <FormControl.Label>Endereço</FormControl.Label>
                 <Input value={address} onChangeText={setAddress} />
+                <FormControl.ErrorMessage>
+                  Por favor, preencha o endereço e o número
+                </FormControl.ErrorMessage>
               </FormControl>
-              <FormControl>
+              <FormControl isRequired isInvalid={isAddress2Invalid}>
                 <FormControl.Label>Cidade e UF</FormControl.Label>
                 <Input value={address2} onChangeText={setAddress2} />
+                <FormControl.ErrorMessage>
+                  Por favor, preencha Cidade e UF
+                </FormControl.ErrorMessage>
               </FormControl>
               <Button
                 mt="6"
                 colorScheme="green"
                 size={'lg'}
                 onPress={saveStudent}
-                isLoading={isLoading}>
+                isLoading={isLoading || isLoadingImagUpload}>
                 Salvar
               </Button>
             </VStack>
